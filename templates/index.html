@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>AskAnything!</title>
+
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/styles.css" rel="stylesheet">
+  </head>
+  
+  <body class="d-flex flex-column h-100">
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href=".">AskAnything!</a>
+        <div class="navbar-nav mb-2 mb-md-0">
+          <form id="search-input" class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Type any question..." aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+
+          <div class="nav-item">
+            <a href="." id="ask-btn" class="btn btn-success">Ask something!</a>
+          </div>
+        </div>
+        <div id="user-menu">
+          <div class="nav-item avatar">
+            <img src="../static/img/avatar-default.png" alt="user-avatar.png">
+          </div>
+
+          <div class="menu-btn">
+            <a href="#" class="nav-link">Settings</a>
+          </div>
+
+          <div class="menu-btn">
+            <a href="#" class="nav-link">Log Out</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Begin page content -->
+  <main class="flex-shrink-0">
+    
+  </main>
+
+  <footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+  </body>
+</html>
