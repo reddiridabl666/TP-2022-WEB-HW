@@ -15,14 +15,14 @@
     <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href=".">AskAnything!</a>
+        <a class="navbar-brand" href="./index.html">AskAnything!</a>
         <div class="navbar-nav mb-2 mb-md-0">
           <form id="search-input" class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Type any question..." aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
 
-          <a href="." id="ask-btn" class="nav-item btn btn-success">Ask something!</a>
+          <a href="./ask.html" id="ask-btn" class="nav-item btn btn-success">Ask something!</a>
         </div>
         <div id="user-menu">
           <div class="nav-item avatar">
@@ -33,7 +33,7 @@
               Hello, User!
             </div>
             <div id="menu-buttons" class="d-flex">
-              <a href="#" class="nav-link menu-btn">Settings</a>
+              <a href="./settings.html" class="nav-link menu-btn">Settings</a>
   
               <a href="#" class="nav-link menu-btn">Log Out</a>
           </div>
@@ -46,7 +46,7 @@
   <!-- Begin page content -->
   <main class="container flex-shrink-0">
     <div class="row">
-      <div class="col-7 me-5">
+      <div class="col-8">
         <div class="flex-centered mb-4">
           <span class="h2 me-3">New Questions</span>
           <a class="nav-link" href="">Popular Questions</a>
@@ -66,14 +66,17 @@
             <h4 class="question-header">How to do X?</h4>
             <p class="question-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto, corrupti!</p>
             <div class="question-footer flex-centered">
-              <a class="btn btn-outline-success py-1" href="#">Answers (3)</a>
+              <a class="btn btn-outline-success py-1" href="./answers.html">Answers (3)</a>
               <span>Tags:</span>
               <ul class="tag-list list-group list-group-horizontal">
                 <li class="list-group-item list-group-item-success">
-                  <a href="#" class="tag">lorem</a>
+                  <a href="./tag-lorem.html" class="tag">lorem</a>
                 </li>
                 <li class="list-group-item list-group-item-success">
                   <a href="#" class="tag">Tag</a>
+                </li>
+                <li class="list-group-item list-group-item-success">
+                  <a href="#" class="tag">Other</a>
                 </li>
               </ul>
             </div>
@@ -94,7 +97,7 @@
             <h4 class="question-header">How to do X?</h4>
             <p class="question-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, soluta ut dolor voluptatum beatae iusto ex vel iure molestiae totam laborum est molestias debitis aut sequi consectetur repellendus velit nulla.</p>
             <div class="question-footer flex-centered">
-              <a class="btn btn-outline-success py-1" href="#">Answers (3)</a>
+              <a class="btn btn-outline-success py-1" href="./answers.html">Answers (3)</a>
               <span>Tags:</span>
               <ul class="tag-list list-group list-group-horizontal">
                 <li class="list-group-item list-group-item-success">
@@ -122,7 +125,7 @@
             <h4 class="question-header">How to do X?</h4>
             <p class="question-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto, corrupti!</p>
             <div class="question-footer flex-centered">
-              <a class="btn btn-outline-success py-1" href="#">Answers (3)</a>
+              <a class="btn btn-outline-success py-1" href="./answers.html">Answers (3)</a>
               <span>Tags:</span>
               <ul class="tag-list list-group list-group-horizontal">
                 <li class="list-group-item list-group-item-success">
@@ -137,7 +140,7 @@
         </div>
       </div>
       <!-- <div class="col-1"></div> -->
-      <div class="col">
+      <div class="col-4">
         <h3>Popular Tags</h3>
         <table class="table table-bordered">
           <tr class="table-row">

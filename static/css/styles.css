@@ -35,7 +35,7 @@ main {
     margin-bottom: 20px;
 
     max-width: 800px;
-    /* max-height: 200px; */
+    /* min-width: 100%; */
 }
 
 .rating {
@@ -45,7 +45,7 @@ main {
 }
 
 .question-main {
-    width: 80%;
+    width: 85%;
 }
 
 .rating * {
@@ -61,7 +61,7 @@ main {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 95%;
+    width: 92%;
 }
 
 .flex-centered {
@@ -140,4 +140,8 @@ main {
 
 .list-group-item {
     padding: 5px 10px;
+}
+
+.tag-list {
+    overflow-x: auto;
 }
