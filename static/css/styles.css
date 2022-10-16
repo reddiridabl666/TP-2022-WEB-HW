@@ -12,20 +12,22 @@ main {
     font-size: 1.7em;
 }
 
-.avatar {
-    width: 50px;
-    height: auto;
+.avatar, .avatar-big, .avatar-question{
     border-radius: 50%;
-    border: 2px solid lightgreen;
+    border: 2px solid green;
+    height: auto;
 }
 
+.avatar {
+    width: 50px;
+}
 
 .avatar-question {
     width: 60px;
-    height: auto;
+}
 
-    border-radius: 50%;
-    border: 2px solid green;
+.avatar-big {
+    width: 100px;
 }
 
 .question {
@@ -90,7 +92,7 @@ main {
     justify-content: space-between;
 
     width: 15%;
-    min-width: 200px;
+    min-width: 210px;
 }
 
 .navbar-nav {
@@ -144,4 +146,25 @@ main {
 
 .form-control {
     border: 1.5px solid gray;
+}
+
+.bigger-font {
+    font-size: 1.1em;
+}
+
+.smaller-font {
+    font-size: 0.9em;
+}
+
+.form-check-label {
+    font-size: 1.1em;
+}
+
+.form-check-label:hover {
+    color: green;
+}
+
+.form-check-input:checked {
+    background-color: rgb(2, 192, 2);
+    border-color: green;
 }
