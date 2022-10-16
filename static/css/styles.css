@@ -15,16 +15,17 @@ main {
 .avatar {
     width: 50px;
     height: auto;
+    border-radius: 50%;
+    border: 2px solid lightgreen;
 }
+
 
 .avatar-question {
     width: 60px;
     height: auto;
-}
 
-.avatar img {
-    width: 100%;
-    height: 100%;
+    border-radius: 50%;
+    border: 2px solid green;
 }
 
 .question {
@@ -33,19 +34,14 @@ main {
 
     padding: 8px;
     margin-bottom: 20px;
-
-    max-width: 800px;
-    /* min-width: 100%; */
 }
 
 .rating {
     border: 2px solid green;
     padding: 0px;
     border-radius: 5px;
-}
-
-.question-main {
-    width: 85%;
+    width: 70%;
+    min-width: 64px;
 }
 
 .rating * {
@@ -61,7 +57,6 @@ main {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 92%;
 }
 
 .flex-centered {
@@ -76,6 +71,11 @@ main {
 .tag {
     text-decoration: none;
     color: darkgreen;
+    /* padding: 0; */
+}
+
+.tag-list .tag {
+    font-size: 0.8em;
 }
 
 .tag:hover {
@@ -140,8 +140,4 @@ main {
 
 .list-group-item {
     padding: 5px 10px;
-}
-
-.tag-list {
-    overflow-x: auto;
 }

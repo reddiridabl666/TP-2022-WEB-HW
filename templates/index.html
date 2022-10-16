@@ -25,8 +25,8 @@
           <a href="./ask.html" id="ask-btn" class="nav-item btn btn-success">Ask something!</a>
         </div>
         <div id="user-menu">
-          <div class="nav-item avatar">
-            <img src="../static/img/avatar-default.png" alt="user-avatar.png">
+          <div class="nav-item">
+            <img class="avatar" src="../static/img/avatar-default.png" alt="user-avatar.png">
           </div>
           <div class="d-flex flex-column align-items-center">
             <div class="text-secondary">
@@ -45,94 +45,103 @@
 
   <!-- Begin page content -->
   <main class="container flex-shrink-0">
-    <div class="row">
-      <div class="col-8">
-        <div class="flex-centered mb-4">
-          <span class="h2 me-3">New Questions</span>
-          <a class="nav-link" href="">Popular Questions</a>
-        </div>
-  
-        <div class="question flex-centered">
-          <div class="flex-centered flex-column me-4">
+    <div class="row gx-0 mt-3 mb-2">
+      <div class="col-12 d-flex align-items-center">
+        <h2 class="me-4">New Questions</h2>
+        <a class="nav-link" href="">Popular Questions</a>
+      </div>
+      
+    </div>
+
+    <div class="row gx-5">
+      <div class="col-7">
+        <div class="row question px-0 py-3">
+          <div class="col-2 p-0 ps-1 center-box text-center">
             <img class="avatar-question mb-2"src="../static/img/avatar-default.png" alt="user-avatar">
-            <div class="rating flex-centered">
-              <button class="btn">-</button>
+            <div class="rating flex-centered justify-content-evenly mx-auto">
+              <button class="btn px-0">-</button>
               <span>10</span>
-              <button class="btn">+</button>
+              <button class="btn px-0">+</button>
             </div>
           </div>
           
-          <div class="d-flex question-main flex-column">
+          <div class="col-10 pe-1 py-0 question-main">
             <h4 class="question-header">How to do X?</h4>
             <p class="question-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto, corrupti!</p>
             <div class="question-footer flex-centered">
               <a class="btn btn-outline-success py-1" href="./answers.html">Answers (3)</a>
               <span>Tags:</span>
               <ul class="tag-list list-group list-group-horizontal">
-                <li class="list-group-item list-group-item-success">
+                <li class="list-group-item p-1 list-group-item-success">
                   <a href="./tag-lorem.html" class="tag">lorem</a>
                 </li>
-                <li class="list-group-item list-group-item-success">
+                <li class="list-group-item p-1 px-2 list-group-item-success">
                   <a href="#" class="tag">Tag</a>
                 </li>
-                <li class="list-group-item list-group-item-success">
+                <li class="list-group-item p-1 list-group-item-success">
                   <a href="#" class="tag">Other</a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
-  
-        <div class="question flex-centered">
-          <div class="flex-centered flex-column me-4">
+
+        <div class="row question px-0 py-3">
+          <div class="col-2 p-0 ps-1 center-box text-center">
             <img class="avatar-question mb-2"src="../static/img/avatar-default.png" alt="user-avatar">
-            <div class="rating flex-centered">
-              <button class="btn">-</button>
+            <div class="rating flex-centered justify-content-evenly mx-auto">
+              <button class="btn px-0">-</button>
               <span>10</span>
-              <button class="btn">+</button>
+              <button class="btn px-0">+</button>
             </div>
           </div>
           
-          <div class="d-flex question-main flex-column">
-            <h4 class="question-header">How to do X?</h4>
-            <p class="question-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, soluta ut dolor voluptatum beatae iusto ex vel iure molestiae totam laborum est molestias debitis aut sequi consectetur repellendus velit nulla.</p>
-            <div class="question-footer flex-centered">
-              <a class="btn btn-outline-success py-1" href="./answers.html">Answers (3)</a>
-              <span>Tags:</span>
-              <ul class="tag-list list-group list-group-horizontal">
-                <li class="list-group-item list-group-item-success">
-                  <a href="#" class="tag">lorem</a>
-                </li>
-                <li class="list-group-item list-group-item-success">
-                  <a href="#" class="tag">Tag</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-  
-        <div class="question flex-centered">
-          <div class="flex-centered flex-column me-4">
-            <img class="avatar-question mb-2"src="../static/img/avatar-default.png" alt="user-avatar">
-            <div class="rating flex-centered">
-              <button class="btn">-</button>
-              <span>10</span>
-              <button class="btn">+</button>
-            </div>
-          </div>
-          
-          <div class="d-flex question-main flex-column">
+          <div class="col-10 pe-1 py-0 question-main">
             <h4 class="question-header">How to do X?</h4>
             <p class="question-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto, corrupti!</p>
             <div class="question-footer flex-centered">
               <a class="btn btn-outline-success py-1" href="./answers.html">Answers (3)</a>
               <span>Tags:</span>
               <ul class="tag-list list-group list-group-horizontal">
-                <li class="list-group-item list-group-item-success">
-                  <a href="#" class="tag">lorem</a>
+                <li class="list-group-item p-1 list-group-item-success">
+                  <a href="./tag-lorem.html" class="tag">lorem</a>
                 </li>
-                <li class="list-group-item list-group-item-success">
+                <li class="list-group-item p-1 px-2 list-group-item-success">
                   <a href="#" class="tag">Tag</a>
+                </li>
+                <li class="list-group-item p-1 list-group-item-success">
+                  <a href="#" class="tag">Other</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="row question px-0 py-3">
+          <div class="col-2 p-0 ps-1 center-box text-center">
+            <img class="avatar-question mb-2"src="../static/img/avatar-default.png" alt="user-avatar">
+            <div class="rating flex-centered justify-content-evenly mx-auto">
+              <button class="btn px-0">-</button>
+              <span>10</span>
+              <button class="btn px-0">+</button>
+            </div>
+          </div>
+          
+          <div class="col-10 pe-1 py-0 question-main">
+            <h4 class="question-header">How to do X?</h4>
+            <p class="question-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto, corrupti!</p>
+            <div class="question-footer flex-centered">
+              <a class="btn btn-outline-success py-1" href="./answers.html">Answers (3)</a>
+              <span>Tags:</span>
+              <ul class="tag-list list-group list-group-horizontal">
+                <li class="list-group-item p-1 list-group-item-success">
+                  <a href="./tag-lorem.html" class="tag">lorem</a>
+                </li>
+                <li class="list-group-item p-1 px-2 list-group-item-success">
+                  <a href="#" class="tag">Tag</a>
+                </li>
+                <li class="list-group-item p-1 list-group-item-success">
+                  <a href="#" class="tag">Other</a>
                 </li>
               </ul>
             </div>
@@ -140,7 +149,7 @@
         </div>
       </div>
       <!-- <div class="col-1"></div> -->
-      <div class="col-4">
+      <div class="col-5">
         <h3>Popular Tags</h3>
         <table class="table table-bordered">
           <tr class="table-row">
