@@ -46,7 +46,6 @@
 
   <!-- Begin page content -->
   <main class="container flex-shrink-0">
-    <div class="row visually-hidden">Question</div>
     <div class="row gx-5">
       <div class="col-7 mt-3">
         <div class="row question px-0 py-3">
@@ -130,9 +129,9 @@
           </div>
         </div>
 
-        <form action=".">
+        <form action="">
           <div class="row mb-3">
-            <textarea class="form-control" name="answer" id="answer-input" cols="30" rows="5" placeholder="Enter your answer..."></textarea>
+            <textarea class="form-control" name="answer" id="answer-input" cols="30" rows="5" placeholder="Enter your answer..." required maxlength="1000"></textarea>
           </div>
         </form>
         <div class="row">
