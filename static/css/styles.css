@@ -141,3 +141,7 @@ main {
 .list-group-item {
     padding: 5px 10px;
 }
+
+.form-control {
+    border: 1.5px solid gray;
+}

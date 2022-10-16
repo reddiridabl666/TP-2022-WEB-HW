@@ -22,18 +22,18 @@
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
 
-          <a href="." id="ask-btn" class="nav-item btn btn-success">Ask something!</a>
+          <a href="./ask.html" id="ask-btn" class="nav-item btn btn-success">Ask something!</a>
         </div>
         <div id="user-menu">
-          <div class="nav-item avatar">
-            <img src="../static/img/avatar-default.png" alt="user-avatar.png">
+          <div class="nav-item">
+            <img class="avatar" src="../static/img/avatar-default.png" alt="user-avatar.png">
           </div>
           <div class="d-flex flex-column align-items-center">
             <div class="text-secondary">
               Hello, User!
             </div>
             <div id="menu-buttons" class="d-flex">
-              <a href="#" class="nav-link menu-btn">Settings</a>
+              <a href="./settings.html" class="nav-link menu-btn">Settings</a>
   
               <a href="#" class="nav-link menu-btn">Log Out</a>
           </div>
@@ -45,15 +45,49 @@
 
   <!-- Begin page content -->
   <main class="container flex-shrink-0">
-    <div class="row">
-      <div class="col-8">
-        <div class="flex-centered mb-4">
-          <span class="h2 me-3">New Question</span>
-          <a class="nav-link" href="">Popular Questions</a>
-        </div>
+    <div class="row gx-0 mt-3 mb-2">
+      <div class="col-12 d-flex align-items-center">
+        <h2 class="me-4">New Question</h2>
       </div>
-      <!-- <div class="col-1"></div> -->
-      <div class="col-4">
+    </div>
+
+    <div class="row gx-5">
+      <div class="col-6">
+        <form id="question-form" action=".">
+          <div class="form-group row mb-4">
+            <label class="col-2 col-form-label" for="question-title">Title</label>
+            <div class="col-10">
+              <input class="form-control" type="text" name="title" id="question-title">
+            </div>
+          </div>
+
+          <div class="form-group row mb-4">
+            <label class="col-2 col-form-label" for="question-content">Text</label>
+            <div class="col-10">
+              <textarea class="form-control" name="content" id="question-content" cols="30" rows="10"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group row mb-4">
+            <label class="col-2 col-form-label" for="question-tags">Tags</label>
+            <div class="col-10">
+              <input class="form-control" type="text" name="tags" id="question-tags">
+            </div>
+          </div>
+          
+          <div class="form-group row mb-4">
+            <div class="col-2"></div>
+            <div class="col-10">
+              <input class="btn btn-outline-success" type="submit" value="Submit">
+            </div>
+          </div>
+
+          
+        </form>
+      </div>
+
+      <div class="col-lg-3 col-md-1"></div>
+      <div class="col-lg-3 col-md-5">
         <h3>Popular Tags</h3>
         <table class="table table-bordered">
           <tr class="table-row">
@@ -78,5 +112,8 @@
       </div>
     </div>
   </main>
+
+  <footer class="footer position-sticky mt-auto py-3 bg-light">
+  </footer>
   </body>
 </html>
