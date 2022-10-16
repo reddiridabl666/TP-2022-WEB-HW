@@ -45,46 +45,53 @@
 
   <!-- Begin page content -->
   <main class="container flex-shrink-0">
-    <div class="row mt-3 mb-2">
-        <h2>New Question</h2>
+    <div class="row">
+      <h2>Settings: User</h2>
     </div>
 
-    <div class="row gx-5">
-      <div class="col-6">
-        <form id="question-form" action="">
-          <div class="form-group row mb-4">
-            <label class="col-lg-1 col-md-2 col-form-label" for="question-title">Title</label>
-            <div class="col-lg-11 col-md-10">
-              <input class="form-control" type="text" name="title" id="question-title" placeholder="Enter a title for your question..." maxlength="100" required>
+    <div class="row">
+      <div class="col-7">
+        <p id="error-msg" class="text-danger">This login is already taken</p>
+
+        <form action="">
+          <div class="form-group row mb-3">
+            <label for="login" class="col-lg-3 col-md-5 col-form-label">Login</label>
+            <div class="col-lg-5 col-md-7">
+              <input type="text" id="login" class="form-control" value="user_login" required maxlength="20">
             </div>
           </div>
 
-          <div class="form-group row mb-4">
-            <label class="col-lg-1 col-md-2 col-form-label" for="question-content">Text</label>
-            <div class="col-lg-11 col-md-10">
-              <textarea class="form-control" name="content" id="question-content" cols="30" rows="10" placeholder="Enter your question's content..." required maxlength="1000"></textarea>
+          <div class="form-group row mb-3">
+            <label for="email" class="col-lg-3 col-md-5 col-form-label">Email</label>
+            <div class="col-lg-5 col-md-7">
+              <input type="email" id="email" class="form-control" value="user123@mail.ru" required maxlength="320">
             </div>
           </div>
 
-          <div class="form-group row mb-4">
-            <label class="col-lg-1 col-md-2 col-form-label" for="question-tags">Tags</label>
-            <div class="col-lg-11 col-md-10">
-              <input class="form-control" type="text" name="tags" id="question-tags" placeholder="Enter up to 3 tags, divided by commas" maxlength="60">
+          <div class="form-group row mb-3">
+            <label for="nickname" class="col-lg-3 col-md-5 col-form-label">Nickname</label>
+            <div class="col-lg-5 col-md-7">
+              <input type="text" id="nickname" class="form-control" value="User" required maxlength="20">
+            </div>
+          </div>
+
+          <div class="form-group row mb-3 align-items-center">
+            <label for="avatar" class="col-lg-3 col-md-5 col-form-label">Change Avatar</label>
+            <div class="col-lg-5 col-md-7">
+              <img src="../static/img/avatar-default.png" alt="user-avatar.png" class="avatar-big mb-3">
+              <input type="file" accept="image/*" id="avatar" class="form-control">
             </div>
           </div>
           
-          <div class="form-group row mb-4">
-            <div class="col-lg-1 col-md-2"></div>
-            <div class="col-10">
-              <input class="btn btn-outline-success" type="submit" value="Submit">
+          <div class="form-group row">
+            <dic class="col-lg-3 col-md-5"></dic>
+            <div class="smaller-font col-7 d-flex align-items-center">
+              <input type="submit" class="btn btn-outline-success" value="Save">
             </div>
           </div>
-
-          
-        </form>
       </div>
 
-      <div class="col-md-2 col-lg-3"></div>
+      <div class="col-md-1 col-lg-2"></div>
       <div class="col-md-4 col-lg-3">
         <h3>Popular Tags</h3>
         <table class="table table-bordered">
@@ -112,6 +119,17 @@
   </main>
 
   <footer class="footer position-sticky mt-auto py-3 bg-light">
+    <div class="container">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
+    </div>
   </footer>
   </body>
 </html>
