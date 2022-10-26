@@ -47,12 +47,60 @@ main {
 }
 
 .rating * {
-    margin: 1px 2px;
+    margin: 2px 2px;
     padding: 0px 3px;
 }
 
-.rating button {
+/* .rating div {
+    display: flex;
+    align-items: center;
+
+    margin: 6px 0px;
+
+    width: 20px;
+    height: 20px;
+    border: 0.5px solid green;
+    border-radius: 50%;
+} */
+
+.rating span {
+    padding: 0;
+    margin: 2px 0;
+}
+
+.rating label, .rating button {
+    line-height: 16px;
+    width: 18px;
+
+    /* border: 0.8px solid green;
+    border-radius: 50%; */
+    
     font-size: 1.3em;
+    cursor: pointer;
+}
+
+.plus {
+    width: 17px;
+    height: auto;
+}
+
+.minus {
+    width: 15px;
+    height: auto;
+}
+
+.rating input[type="radio"]:checked + label>img {
+    /* color: green; */
+    /* font-size: 1.6em; */
+
+    padding-top: 4px;
+    padding-bottom: 4px;
+
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+    border: 0.8px solid green;
+    border-radius: 5px;
 }
 
 .question-desc {
