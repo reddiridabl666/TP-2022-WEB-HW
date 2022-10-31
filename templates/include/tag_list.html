@@ -1,0 +1,8 @@
+<span>Tags:</span>
+<ul class="tag-list list-group list-group-horizontal">
+  {% for tag in question.tag_list %}
+    <li class="list-group-item p-1 px-2 list-group-item-success">
+      <a href="{% url "tag" tag_name=tag %}" class="tag">{{ tag }}</a>
+    </li>
+  {% endfor %}
+</ul>

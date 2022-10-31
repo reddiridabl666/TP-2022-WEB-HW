@@ -1,0 +1,3 @@
+{% for question in questions %}
+    {% include "include/question_item.html" with button_id=forloop.counter0 %}
+{% endfor %}
