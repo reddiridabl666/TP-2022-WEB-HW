@@ -3,20 +3,29 @@ from django.db import models
 
 seed()
 
-tag_list = [
+TAGS = [
     "SQL", "Python", "Django",
     "C++", "CSS", "Bootstrap"
+]
+
+USERS = [
+    {
+        "id": user_id,
+        "username": f"User {user_id}",
+        "rating": randint(0, 10),
+        "avatar": user_id if user_id < 3 else 0
+    } for user_id in range(5)
 ]
 
 QUESTIONS = [
     {
         "id": question_id,
-        "user_id": 0,
+        "user_id": USERS[question_id % len(USERS)]["id"],
         "title": f"Question {question_id}",
         "text": f"Text of question {question_id}",
         "answer_num": 0,
         "rating": randint(-2, 15),
-        "tag_list": sample(tag_list, 3)
+        "tag_list": sample(TAGS, 3)
     } for question_id in range(5)
 ]
 

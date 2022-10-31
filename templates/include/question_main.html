@@ -3,7 +3,7 @@
     {% include "include/user_avatar.html" with id=question.user_id|stringformat:'i' avatar_class="avatar-big" %}
     {% include "include/rating.html" with rating=question.rating %}
   </div>
-  <div class="col-lg-10 col-md-8 pe-1 py-0">
+  <div class="col-lg-10 col-md-8 pe-1 py-0 d-flex flex-column justify-content-between">
     <h2 class="question-header">{{ question.title }}</h2>
     <p class="bigger-font">{{ question.text }}</p>
     <div class="question-footer flex-centered">

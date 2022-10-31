@@ -12,9 +12,9 @@ def index(request):
 
 
 @require_GET
-def popular(request):
+def hot(request):
     context = {'questions': sorted(models.QUESTIONS, key=lambda q: q['rating'], reverse=True)}
-    return render(request, 'popular.html', context=context)
+    return render(request, 'hot.html', context=context)
 
 
 @require_GET
