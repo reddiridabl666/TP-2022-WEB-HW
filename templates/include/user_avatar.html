@@ -1,2 +1,4 @@
 {% load static %}
-<img class="{{ avatar_class|default:"avatar-question" }} mb-2" src="{% static "img/avatar/"|add:id|add:".png" %}" alt="user-avatar">
+{% with avatar_id=avatar_id|default_if_none:-1|stringformat:'i' %}
+  <img class="{{ avatar_class|default:"avatar-question" }} mb-2" src="{% static "img/avatar/"|add:avatar_id|add:".png" %}" alt="user-avatar">
+{% endwith %}

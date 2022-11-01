@@ -1,6 +1,6 @@
 <div class="row question px-0 py-3">
   <div class="col-lg-2 col-md-4 p-0 ps-1 center-box text-center">
-    {% include "include/user_avatar.html" with id=user.avatar|default_if_none:-1|stringformat:'i' avatar_class="avatar-big" %}
+    {% include "include/user_avatar.html" with avatar_id=user.avatar avatar_class="avatar-big" %}
     {% include "include/rating.html" with rating=question.rating %}
   </div>
   <div class="col-lg-10 col-md-8 pe-1 py-0 d-flex flex-column justify-content-between">

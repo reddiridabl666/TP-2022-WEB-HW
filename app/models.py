@@ -27,7 +27,7 @@ QUESTIONS = [
         "answer_num": 0,
         "rating": randint(-2, 15),
         "tag_list": sorted(sample(TAGS, 3))
-    } for question_id in range(5)
+    } for question_id in range(120)
 ]
 
 
@@ -43,7 +43,7 @@ ANSWERS = [
         "question_id": question_id,
         "text": f"Text of answer {answer_id} for question {question_id}",
         "rating": randint(-2, 7),
-    } for answer_id, question_id in zip(range(20), get_question_ids(20))
+    } for answer_id, question_id in zip(range(len(QUESTIONS) * 8), get_question_ids(len(QUESTIONS) * 8))
 ]
 
 for question in QUESTIONS:
