@@ -1,3 +1,5 @@
-{% for question in questions %}
-    {% include "include/question_item.html" with button_id=forloop.counter0 %}
+{% for question, avatar in questions_avatars %}
+  {% include "include/question_item.html" with button_id=forloop.counter0 avatar_id=avatar|default_if_none:-1|stringformat:'i' %}
+{% empty %}
+  <h5>No questions found for such query</h5>
 {% endfor %}

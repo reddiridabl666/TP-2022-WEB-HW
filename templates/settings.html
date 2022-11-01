@@ -1,4 +1,6 @@
-{% extend "include/base.html" %}
+{% extends "include/base.html" %}
+
+{% load static %}
 
 {% block heading %}
   <h2>Settings: User</h2>
@@ -32,7 +34,7 @@
     <div class="form-group row mb-3 align-items-center">
       <label for="avatar" class="col-lg-3 col-md-5 col-form-label">Change Avatar</label>
       <div class="col-lg-5 col-md-7">
-        <img src="{% static "img/avatar/0.png %}" %}" alt="user-avatar.png" class="avatar-big mb-3">
+        <img src="{% static "img/avatar/-1.png" %}" alt="user-avatar.png" class="avatar-big mb-3">
         <input type="file" accept="image/*" id="avatar" class="form-control">
       </div>
     </div>
@@ -44,8 +46,4 @@
       </div>
     </div>
   </form>
-{% endblock %}
-
-{% block footer %}
-  {% include "include/paginator.html" %}
 {% endblock %}

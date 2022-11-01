@@ -5,15 +5,16 @@ seed()
 
 TAGS = [
     "SQL", "Python", "Django",
-    "C++", "CSS", "Bootstrap"
+    "C++", "CSS", "Bootstrap",
+    "Golang"
 ]
 
 USERS = [
     {
         "id": user_id,
-        "username": f"User {user_id}",
+        "name": f"User {user_id + 1}",
         "rating": randint(0, 10),
-        "avatar": user_id if user_id < 3 else 0
+        "avatar": user_id if user_id < 3 else None
     } for user_id in range(5)
 ]
 
@@ -25,7 +26,7 @@ QUESTIONS = [
         "text": f"Text of question {question_id}",
         "answer_num": 0,
         "rating": randint(-2, 15),
-        "tag_list": sample(TAGS, 3)
+        "tag_list": sorted(sample(TAGS, 3))
     } for question_id in range(5)
 ]
 
@@ -38,7 +39,7 @@ def get_question_ids(size):
 ANSWERS = [
     {
         "id": answer_id,
-        "user_id": 0,
+        "user_id": USERS[answer_id % len(USERS)]["id"],
         "question_id": question_id,
         "text": f"Text of answer {answer_id} for question {question_id}",
         "rating": randint(-2, 7),
