@@ -27,22 +27,26 @@ def paginate(objects, request, on_page=10):
     elif page_num < 1:
         page_num = 1
 
-    return p.page(page_num), list(map(str, p.get_elided_page_range(page_num, on_each_side=2)))
+    return p.page(page_num), str(page_num), list(map(str, p.get_elided_page_range(page_num, on_each_side=2)))
 
 
 @require_GET
 def index(request):
-    questions, pages = paginate(models.QUESTIONS, request)
+    questions, cur_page, pages = paginate(models.QUESTIONS, request)
 
-    context = { 'questions_avatars': zip(questions, get_avatars(questions)), 'pages': pages }
+    context = {'questions_avatars': zip(questions, get_avatars(questions)),
+               'pages': pages, 'cur_page': cur_page}
+
     return render(request, 'index.html', context=context)
 
 
 @require_GET
 def hot(request, page = 1):
-    questions, pages = paginate(sorted_by_rating(models.QUESTIONS), request)
+    questions, cur_page, pages = paginate(sorted_by_rating(models.QUESTIONS), request)
 
-    context = { 'questions_avatars': zip(questions, get_avatars(questions)), 'pages': pages }
+    context = {'questions_avatars': zip(questions, get_avatars(questions)),
+               'pages': pages, 'cur_page': cur_page}
+
     return render(request, 'hot.html', context=context)
 
 
@@ -54,12 +58,12 @@ def question(request, question_id: int, page = 1):
     question = models.QUESTIONS[question_id]
     answers = sorted_by_rating([ans for ans in models.ANSWERS if ans['question_id'] == question_id])
 
-    answers, pages = paginate(answers, request, 7)
+    answers, cur_page, pages = paginate(answers, request, 7)
 
     context = {'question': question,
                'user': models.USERS[question['user_id']],
                'answers_avatars': zip(answers, get_avatars(answers)),
-               'pages': pages}
+               'pages': pages, 'cur_page': cur_page}
 
     return render(request, 'question.html', context=context)
 
@@ -87,7 +91,8 @@ def settings(request):
 @require_GET
 def tag(request, tag_name):
     questions = sorted_by_rating([q for q in models.QUESTIONS if tag_name in q['tag_list']])
-    questions, pages = paginate(questions, request)
+    questions, cur_page, pages = paginate(questions, request)
 
-    context = {'tag_name': tag_name, 'questions_avatars': zip(questions, get_avatars(questions)), 'pages': pages}
+    context = {'tag_name': tag_name, 'pages': pages, 'cur_page': cur_page,
+               'questions_avatars': zip(questions, get_avatars(questions))}
     return render(request, 'tag.html', context=context)

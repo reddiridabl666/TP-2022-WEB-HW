@@ -28,7 +28,7 @@
           <a href="{% url "ask" %}" id="ask-btn" class="nav-item btn btn-success">Ask something!</a>
         </div>
         <div id="user-menu">
-          {% if request.is_authorized %}
+          {% if request.user.is_authenticated %}
             <div class="nav-item">
               {% include "include/user_avatar.html" with avatar_class="avatar" id='-1'%}
             </div>

@@ -2,10 +2,16 @@ from app import models
 
 
 def get_tag_list(request):
-    return {'tag_list': [
-        models.TAGS[i:i + 3] for i in range(0, len(models.TAGS), 3)
-    ]}
+    def yield_tags():
+        for i in range(0, len(models.TAGS), 3):
+            yield models.TAGS[i:i + 3]
+
+    return { 'tag_list': yield_tags }
 
 
 def get_users(request):
-    return { 'users': models.USERS }
+    def yield_users():
+        for user in models.USERS:
+            yield user
+
+    return { 'users': yield_users }
