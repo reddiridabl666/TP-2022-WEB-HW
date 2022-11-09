@@ -7,6 +7,14 @@
     {% include "include/answer_item.html" with button_id=forloop.counter %}
   {% endfor %}
 
+  <form action="" class="mb-3">
+    <div class="row mb-3">
+      <textarea class="form-control" name="answer" id="answer-input" cols="30" rows="5" placeholder="Enter your answer..." required maxlength="1000"></textarea>
+    </div>
+    <div class="row">
+      <input class="col-md-3 col-lg-2 btn btn-outline-success" type="sumbit" value="Answer">
+    </div>
+  </form>
 {% endblock %}
 
 {% block footer %}
