@@ -5,6 +5,7 @@ from django.views.decorators.http import require_GET
 
 from . import models
 
+
 def get_avatars(questions):
     return [models.USERS[q['user_id']]['avatar'] for q in questions]
 
@@ -95,4 +96,5 @@ def tag(request, tag_name):
 
     context = {'tag_name': tag_name, 'pages': pages, 'cur_page': cur_page,
                'questions_avatars': zip(questions, get_avatars(questions))}
+
     return render(request, 'tag.html', context=context)
