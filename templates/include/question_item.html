@@ -1,0 +1,15 @@
+<div class="row question px-0 py-3 align-items-center">
+  <div class="col-2 p-0 ps-1 center-box text-center">
+    {% include "include/user_avatar.html" %}
+    {% include "include/rating.html" with rating=question.rating id=button_id %}
+  </div>
+
+  <div class="col-10 pe-1 py-0">
+    <h4 class="question-header">{{ question.title }}</h4>
+    <p class="question-desc">{{ question.text }}</p>
+    <div class="question-footer flex-centered justify-content-lg-between justify-content-md-between">
+      <a class="btn btn-outline-success py-1" href="{% url "question" question_id=question.id %}">Answers ({{ question.answer_num }})</a>
+      {% include "include/tag_list.html" %}
+    </div>
+  </div>
+</div>

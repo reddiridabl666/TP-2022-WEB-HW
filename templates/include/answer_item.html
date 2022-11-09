@@ -1,0 +1,17 @@
+<div class="row question px-0 py-3">
+  <div class="col-md-3 col-lg-2 p-0 ps-1 center-box text-center">
+      {% include "include/user_avatar.html" %}
+      {% include "include/rating.html" with rating=answer.rating id=button_id %}
+  </div>
+
+  <div class="col-md-9 col-lg-10 pe-1 py-0">
+    <p> {{ answer.text }}</p>
+
+    <div class="question-footer row gx-5">
+      <div class="form-group col-3 d-flex align-items-center">
+        <input id="correct-2" class="me-3 form-check form-check-input form-check-inline" type="checkbox">
+        <label class="form-check-label" for="correct-2">Correct!</label>
+      </div>
+    </div>
+  </div>
+</div>
