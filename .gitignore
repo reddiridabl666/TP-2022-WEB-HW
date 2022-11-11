@@ -1,5 +1,5 @@
 venv
 .idea
 .vscode
-ask_anything/__pycache__
-app/__pycache__
+*/__pycache__
+app/migrations/__pycache__

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app'
 ]
 
 MIDDLEWARE = [
@@ -62,6 +63,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
                 'ask_anything.context_processors.get_tag_list',
                 'ask_anything.context_processors.get_users'
             ],
@@ -77,8 +79,10 @@ WSGI_APPLICATION = 'ask_anything.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'TP-2022-WEB',
+        'USER': 'django',
+        'PASSWORD': '12345'
     }
 }
 
@@ -127,3 +131,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_ROOT = '/home/leonid/Technopark/Web/hw/uploaded'
+MEDIA_URL = '/media/'

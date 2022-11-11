@@ -1,50 +1,54 @@
 from random import randint, seed, sample
+
+import django.contrib.auth.models as auth
 from django.db import models
 
-seed()
 
-TAGS = [
-    "SQL", "Python", "Django",
-    "C++", "CSS", "Bootstrap",
-    "Golang"
-]
-
-USERS = [
-    {
-        "id": user_id,
-        "name": f"User {user_id + 1}",
-        "rating": randint(0, 10),
-        "avatar": user_id if user_id < 3 else None
-    } for user_id in range(5)
-]
-
-QUESTIONS = [
-    {
-        "id": question_id,
-        "user_id": USERS[question_id % len(USERS)]["id"],
-        "title": f"Question {question_id}",
-        "text": f"Text of question {question_id}",
-        "answer_num": 0,
-        "rating": randint(-2, 15),
-        "tag_list": sorted(sample(TAGS, 3))
-    } for question_id in range(120)
-]
+class UserProfile(models.Model):
+    user_id = models.OneToOneField(auth.User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to='avatars')
+    signed_up_at = models.DateTimeField(auto_now_add=True)
 
 
-def get_question_ids(size):
-    for answer_id in range(size):
-        yield QUESTIONS[(answer_id + randint(0, len(QUESTIONS))) % len(QUESTIONS)]['id']
+class Tag(models.Model):
+    name = models.CharField(max_length=20, unique=True)
 
 
-ANSWERS = [
-    {
-        "id": answer_id,
-        "user_id": USERS[answer_id % len(USERS)]["id"],
-        "question_id": question_id,
-        "text": f"Text of answer {answer_id} for question {question_id}",
-        "rating": randint(-2, 7),
-    } for answer_id, question_id in zip(range(len(QUESTIONS) * 8), get_question_ids(len(QUESTIONS) * 8))
-]
+class Question(models.Model):
+    user_id = models.ForeignKey(UserProfile, on_delete=models.RESTRICT)
 
-for question in QUESTIONS:
-    question['answer_num'] = len(list(filter(lambda ans: ans['question_id'] == question['id'], ANSWERS)))
+    title = models.CharField(max_length=50)
+    body = models.CharField(max_length=300)
+
+    rating = models.IntegerField(default=0)
+    tag = models.ManyToManyField(Tag)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Answer(models.Model):
+    user_id = models.ForeignKey(UserProfile, on_delete=models.RESTRICT)
+    question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
+
+    body = models.CharField(max_length=300)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    rating = models.IntegerField(default=0)
+    is_correct = models.BooleanField()
+
+
+
+class RatingType(models.TextChoices):
+    LIKE = '1', 'Like'
+    DISLIKE = '0', 'Dislike'
+
+
+class QuestionRating(models.Model):
+    question_id = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    value = models.CharField(choices=RatingType.choices, max_length=1)
+
+
+class AnswerRating(models.Model):
+    question_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    value = models.CharField(choices=RatingType.choices, max_length=1)
