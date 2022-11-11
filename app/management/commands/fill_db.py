@@ -1,9 +1,15 @@
+from datetime import time
+
 from django.core.management.base import BaseCommand
+from django.db.utils import IntegrityError
+
 from app.models import *
 import django.contrib.auth.models as auth
-from faker import Faker
 
-Faker.seed(0)
+from faker import Faker
+import faker
+
+Faker.seed(time())
 
 fake = Faker()
 
@@ -12,24 +18,85 @@ class Command(BaseCommand):
     help = "Fill db's tables, use 'ratio=<int>' to choose number of items added"
 
     def add_arguments(self, parser):
-        pass
+        parser.add_argument('--ratio',
+                            help='Set ratio for filling the db. DB will be filled with {ratio} users, {ratio} * 10 questions, '
+                                 '{ratio} * 100 answers, {ratio} tags, {ratio} * 200 ratings')
 
     @staticmethod
     def fill_users(ratio):
-        users = [
-            auth.User.objects.create_user(username=fake.user_name(), password=fake.password())
-            for _ in range(ratio)
-        ]
+        try:
+            users = [
+                auth.User.objects.create(username=fake.unique.user_name(), password=fake.password())
+                for _ in range(ratio)
+            ]
+        except faker.exceptions.UniquenessException:
+            print("Failed to create unique username, please try again")
+            return
 
-        for user in users:
-            user.save()
+        try:
+            auth.User.objects.bulk_create(users)
+        except IntegrityError:
+            print("Failed to create unique username, please try again")@staticmethod
+
+    @staticmethod
+    def fill_profiles(ratio):
+        try:
+            users = [
+                auth.User.objects.create(username=fake.unique.user_name(), password=fake.password())
+                for _ in range(ratio)
+            ]
+        except faker.exceptions.UniquenessException:
+            print("Failed to create unique username, please try again")
+            return
+
+        try:
+            auth.User.objects.bulk_create(users)
+        except IntegrityError:
+            print("Failed to create unique username, please try again")
+
+    @staticmethod
+    def fill_tags(ratio):
+        tags = [Tag.objects.create(name=''.join(fake.random_letters(length=fake.random_int(min=3, max=20)))) for _ in range(ratio)]
+
+        try:
+            for tag in tags:
+                tag.save()
+        except IntegrityError:
+            print("Failed to create unique tag name, please try again")
+
+    @staticmethod
+    def fill_questions(ratio):
+        pass
+
+    @staticmethod
+    def fill_answers(ratio):
+        pass
+
+    @staticmethod
+    def fill_ratings(ratio):
+        pass
 
     def handle(self, *args, **options):
-        if len(args) > 0 or len(options) > 1:
-            raise ValueError('This script accepts only keyword argument "ratio=<int>"')
-        ratio = options.get('ratio', 10)
+        DEFAULT_RATIO = 10
 
-        self.fill_users(ratio)
+        if len(args) > 1:
+            print('This script accepts only keyword argument "ratio=<int>"')
+            return
+
+        ratio = options.get('--ratio', DEFAULT_RATIO)
+
+        try:
+            ratio = int(ratio)
+        except ValueError:
+            ratio = DEFAULT_RATIO
+
+        # self.fill_users(ratio)
+        self.fill_tags(ratio)
+        # self.fill_questions(ratio)
+        # self.link_tags_with_questions()
+        # self.fill_answers(ratio)
+        # self.fill_ratings(ratio)
+
 
 # TAGS = [
 #     "SQL", "Python", "Django",
