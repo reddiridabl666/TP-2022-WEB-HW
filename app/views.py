@@ -15,12 +15,12 @@ def sorted_by_rating(list):
 
 
 def paginate(objects, request, on_page=10):
-    page_num = request.GET.get('page', default=1)
+    page_num = request.GET.get('page', default='1')
     p = Paginator(objects, on_page)
 
-    try:
+    if page_num.is_digit():
         page_num = int(page_num)
-    except ValueError:
+    else:
         page_num = 1
 
     if page_num > p.num_pages:
