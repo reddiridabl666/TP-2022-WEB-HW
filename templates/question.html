@@ -3,7 +3,7 @@
 {% block content %}
   {% include "include/question_main.html" %}
 
-  {% for answer, avatar_id in answers_avatars %}
+  {% for answer in answers %}
     {% include "include/answer_item.html" with button_id=forloop.counter %}
   {% endfor %}
 

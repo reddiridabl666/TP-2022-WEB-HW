@@ -40,7 +40,10 @@ class Command(BaseCommand):
     @staticmethod
     def fill_profiles(users):
         profiles = [
-            UserProfile(user_id=user, avatar="avatar/" + str(fake.random_int(min=0, max=2)) + ".png")
+            UserProfile(user=user,
+                        avatar="avatars/" + str(fake.random_int(min=-1, max=2)) + ".png",
+                        nickname=fake.unique.user_name(),
+                        email=fake.unique.email())
             for user in users
         ]
 
@@ -62,7 +65,7 @@ class Command(BaseCommand):
     def fill_questions(profiles):
         questions = []
         for i in range(10):
-            questions.extend([Question(profile_id=profile,
+            questions.extend([Question(profile=profile,
                                        title=fake.sentence()[:-1] + '?',
                                        body=fake.text())
                               for profile in profiles])
@@ -75,8 +78,8 @@ class Command(BaseCommand):
     def fill_answers(questions, profiles):
         answers = []
         for i in range(10):
-            answers.extend([Answer(profile_id=random.choice(profiles),
-                                   question_id=question,
+            answers.extend([Answer(profile=random.choice(profiles),
+                                   question=question,
                                    body=fake.text())
                             for question in questions])
 
@@ -96,12 +99,12 @@ class Command(BaseCommand):
     def fill_question_ratings(questions, profiles):
         ratings = []
         values = [RatingType.LIKE, RatingType.LIKE, RatingType.LIKE,
-                  RatingType.DISLIKE, RatingType.DISLIKE]
+                  RatingType.LIKE, RatingType.DISLIKE]
 
         for profile in profiles:
             rated_questions = random.sample(questions, random.randint(90, 110))
-            ratings.extend([QuestionRating(question_id=question,
-                                           profile_id=profile,
+            ratings.extend([QuestionRating(question=question,
+                                           profile=profile,
                                            value=random.choice(values))
                             for question in rated_questions])
 
@@ -111,12 +114,12 @@ class Command(BaseCommand):
     def fill_answer_ratings(answers, profiles):
         ratings = []
         values = [RatingType.LIKE, RatingType.LIKE, RatingType.LIKE,
-                  RatingType.DISLIKE, RatingType.DISLIKE]
+                  RatingType.LIKE, RatingType.DISLIKE]
 
         for profile in profiles:
             rated_answers = random.sample(answers, random.randint(90, 110))
-            ratings.extend([AnswerRating(answer_id=answer,
-                                         profile_id=profile,
+            ratings.extend([AnswerRating(answer=answer,
+                                         profile=profile,
                                          value=random.choice(values))
                             for answer in rated_answers])
 
@@ -136,12 +139,15 @@ class Command(BaseCommand):
         else:
             ratio = DEFAULT_RATIO
 
-        users = self.fill_users(ratio)
-        profiles = self.fill_profiles(users)
-        questions = self.fill_questions(profiles)
-        answers = self.fill_answers(questions, profiles)
-        tags = self.fill_tags(ratio)
+        # users = self.fill_users(ratio)
+        # profiles = self.fill_profiles(users)
+        # questions = self.fill_questions(profiles)
+        # answers = self.fill_answers(questions, profiles)
+        # tags = self.fill_tags(ratio)
 
-        self.link_tags_with_questions(tags, questions)
-        self.fill_question_ratings(questions, profiles)
-        self.fill_answer_ratings(answers, profiles)
+        # self.link_tags_with_questions(tags, questions)
+        # self.fill_question_ratings(questions, profiles)
+        # self.fill_answer_ratings(answers, profiles)
+
+        self.fill_question_ratings(list(Question.objects.all()), UserProfile.objects.all())
+        self.fill_answer_ratings(list(Answer.objects.all()), UserProfile.objects.all())

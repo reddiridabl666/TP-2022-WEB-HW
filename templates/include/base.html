@@ -28,7 +28,7 @@
           <a href="{% url "ask" %}" id="ask-btn" class="nav-item btn btn-success">Ask something!</a>
         </div>
         <div id="user-menu">
-          {% if request.user.is_authenticated %}
+          {% if not request.user.is_authenticated %}
             <div class="nav-item">
               {% include "include/user_avatar.html" with avatar_class="avatar" user=request.user.userprofile %}
             </div>
@@ -69,7 +69,7 @@
       <div class="col-md-4 col-lg-4">
         <h3>Popular Tags</h3>
         <table class="table table-borderless">
-          {% for tag in tag_list %}
+          {% for tag in tag_list|slice:":15" %}
             {% if forloop.counter0|divisibleby:3 %}
               <tr>
             {% endif %}
@@ -79,11 +79,11 @@
         </table>
 
         <h3>Best Members</h3>
-        <ul>
-          {% for user in users %}
+        <ol>
+          {% for user in users|slice:":10" %}
             <li><a class="tag" href="#">{{ user }}</a></li>
           {% endfor %}
-        </ul>
+        </ol>
         
       </div>
     </div>
