@@ -1,17 +1,14 @@
-from app import models
-
+from app.models import *
+from django.contrib.auth.models import User
 
 def get_tag_list(request):
-    def yield_tags():
-        for i in range(0, len(models.TAGS), 3):
-            yield models.TAGS[i:i + 3]
+    # def yield_tags():
+    #     for i in range(0, min(15, Tag.objects.all().count()), 3):
+    #         yield Tag.objects.all()[i:i+3]
 
-    return { 'tag_list': yield_tags }
+    return { 'tag_list': Tag.objects.popular()[:15] }
 
 
 def get_users(request):
-    def yield_users():
-        for user in models.USERS:
-            yield user
-
-    return { 'users': yield_users }
+    return { 'users': User.objects.annotate(models.Count('userprofile__answer'))
+                                  .order_by('-userprofile__answer__count')[:5] }

@@ -3,8 +3,7 @@ from django.http import Http404
 from django.core.paginator import Paginator
 from django.views.decorators.http import require_GET
 
-from . import models
-
+from app.models import *
 
 def get_avatars(questions):
     return [models.USERS[q['user_id']]['avatar'] for q in questions]
@@ -15,12 +14,12 @@ def sorted_by_rating(list):
 
 
 def paginate(objects, request, on_page=10):
-    page_num = request.GET.get('page', default=1)
+    page_num = request.GET.get('page', default='1')
     p = Paginator(objects, on_page)
 
-    try:
+    if page_num.isdigit():
         page_num = int(page_num)
-    except ValueError:
+    else:
         page_num = 1
 
     if page_num > p.num_pages:
@@ -33,9 +32,9 @@ def paginate(objects, request, on_page=10):
 
 @require_GET
 def index(request):
-    questions, cur_page, pages = paginate(models.QUESTIONS, request)
+    questions, cur_page, pages = paginate(Question.objects.all(), request)
 
-    context = {'questions_avatars': zip(questions, get_avatars(questions)),
+    context = {'questions': questions,
                'pages': pages, 'cur_page': cur_page}
 
     return render(request, 'index.html', context=context)
