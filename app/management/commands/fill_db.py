@@ -31,35 +31,45 @@ class Command(BaseCommand):
         ]
 
         auth.User.objects.bulk_create(users)
-        self.fill_profiles()
+
+        profiles = self.fill_profiles(users)
+        self.fill_questions(profiles)
 
     @staticmethod
-    def fill_profiles():
+    def fill_profiles(users):
         profiles = [
-            UserProfile(user_id=id, avatar=str(fake.random_int(min=0, max=2)) + ".png")
-            for id in auth.User.objects.only('id')
+            UserProfile(user_id=user, avatar=str(fake.random_int(min=0, max=2)) + ".png")
+            for user in users
         ]
 
         UserProfile.objects.bulk_create(profiles)
+
+        return profiles
 
     @staticmethod
     def fill_tags(ratio):
         id = Tag.objects.all().count()
 
-        def random_word():
-            return ''.join(fake.random_letters(length=fake.random_int(min=3, max=15)))
+        tags = [Tag(name=fake.word() + str(id + i)) for i in range(ratio)]
 
-        tags = [Tag(name=random_word() + str(id + i)) for i in range(ratio)]
-
-        for tag in tags:
-            tag.save()
+        # for tag in tags:
+        #     tag.save()
+        Tag.objects.bulk_create(tags)
 
     @staticmethod
-    def fill_questions(ratio):
-        pass
+    def fill_questions(profiles):
+        questions = []
+        for i in range(10):
+            questions.extend([Question(profile_id=profile,
+                                       title=fake.sentence()[:-1] + '?',
+                                       body=fake.text())
+                              for profile in profiles])
+
+        Question.objects.bulk_create(questions)
+
 
     @staticmethod
-    def fill_answers(ratio):
+    def fill_answers():
         pass
 
     @staticmethod
@@ -82,11 +92,11 @@ class Command(BaseCommand):
         except ValueError:
             ratio = DEFAULT_RATIO
 
-        # self.fill_users(ratio)
-        # self.fill_tags(ratio)
-        # self.fill_questions(ratio)
+        # auth.User.objects.exclude(is_staff=True).delete()
+        self.fill_users(ratio)
+        self.fill_tags(ratio)
         # self.link_tags_with_questions()
-        # self.fill_answers(ratio)
+        # self.fill_answers()
         # self.fill_ratings(ratio)
 
 
