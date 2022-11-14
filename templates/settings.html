@@ -20,14 +20,14 @@
     <div class="form-group row mb-3">
       <label for="email" class="col-lg-3 col-md-5 col-form-label">Email</label>
       <div class="col-lg-5 col-md-7">
-        <input type="email" id="email" class="form-control" value="user123@mail.ru" required maxlength="320">
+        <input type="email" id="email" class="form-control" value="{{ request.user.userprofile.email }}" required maxlength="320">
       </div>
     </div>
 
     <div class="form-group row mb-3">
       <label for="nickname" class="col-lg-3 col-md-5 col-form-label">Nickname</label>
       <div class="col-lg-5 col-md-7">
-        <input type="text" id="nickname" class="form-control" value="User" required maxlength="20">
+        <input type="text" id="nickname" class="form-control" value="{{ request.user.userprofile.nickname }}" required maxlength="20">
       </div>
     </div>
 

@@ -77,13 +77,17 @@ class Command(BaseCommand):
     @staticmethod
     def fill_answers(questions, profiles):
         answers = []
-        for i in range(10):
+        for question in questions:
+            answer_num = random.randint(8, 15)
+            question.answer_num = answer_num
+
             answers.extend([Answer(profile=random.choice(profiles),
                                    question=question,
-                                   body=fake.text())
-                            for question in questions])
+                                   body=fake.text(max_nb_chars=400))
+                            for _ in range(answer_num)])
 
         Answer.objects.bulk_create(answers)
+        Question.objects.bulk_update(questions, ['answer_num'], batch_size=10000)
 
         return answers
 
@@ -97,36 +101,54 @@ class Command(BaseCommand):
 
     @staticmethod
     def fill_question_ratings(questions, profiles):
-        ratings = []
         values = [RatingType.LIKE, RatingType.LIKE, RatingType.LIKE,
                   RatingType.LIKE, RatingType.DISLIKE]
 
-        for profile in profiles:
-            rated_questions = random.sample(questions, random.randint(90, 110))
-            ratings.extend([QuestionRating(question=question,
-                                           profile=profile,
-                                           value=random.choice(values))
-                            for question in rated_questions])
+        ratings = []
 
-        QuestionRating.objects.bulk_create(ratings)
+        for question in questions:
+            rated_users = random.sample(profiles, random.randint(10, 25))
+
+            new_ratings = [QuestionRating(question=question,
+                                      profile=user,
+                                      value=random.choice(values))
+                       for user in rated_users]
+
+            for rating in new_ratings:
+                question.rating += int(rating.value)
+
+            ratings += new_ratings
+
+        QuestionRating.objects.bulk_create(ratings, batch_size=100000)
+
+        Question.objects.bulk_update(questions, ['rating'], batch_size=10000)
 
     @staticmethod
     def fill_answer_ratings(answers, profiles):
-        ratings = []
         values = [RatingType.LIKE, RatingType.LIKE, RatingType.LIKE,
                   RatingType.LIKE, RatingType.DISLIKE]
 
-        for profile in profiles:
-            rated_answers = random.sample(answers, random.randint(90, 110))
-            ratings.extend([AnswerRating(answer=answer,
-                                         profile=profile,
-                                         value=random.choice(values))
-                            for answer in rated_answers])
+        ratings = []
 
-        AnswerRating.objects.bulk_create(ratings)
+        for answer in answers:
+            rated_users = random.sample(profiles, random.randint(1, 5))
+
+            new_ratings = [AnswerRating(answer=answer,
+                                        profile=user,
+                                        value=random.choice(values))
+                           for user in rated_users]
+
+            for rating in new_ratings:
+                answer.rating += int(rating.value)
+
+            ratings += new_ratings
+
+        AnswerRating.objects.bulk_create(ratings, batch_size=100000)
+
+        Answer.objects.bulk_update(answers, ['rating'], batch_size=10000)
 
     def handle(self, *args, **options):
-        DEFAULT_RATIO = 10
+        DEFAULT_RATIO = 100
 
         if len(args) > 1:
             print('This script accepts only keyword argument "ratio=<int>"')
@@ -139,15 +161,15 @@ class Command(BaseCommand):
         else:
             ratio = DEFAULT_RATIO
 
-        # users = self.fill_users(ratio)
-        # profiles = self.fill_profiles(users)
-        # questions = self.fill_questions(profiles)
-        # answers = self.fill_answers(questions, profiles)
-        # tags = self.fill_tags(ratio)
+        if ratio < DEFAULT_RATIO:
+            ratio = DEFAULT_RATIO
 
-        # self.link_tags_with_questions(tags, questions)
-        # self.fill_question_ratings(questions, profiles)
-        # self.fill_answer_ratings(answers, profiles)
+        users = self.fill_users(ratio)
+        profiles = self.fill_profiles(users)
+        questions = self.fill_questions(profiles)
+        answers = self.fill_answers(questions, profiles)
+        tags = self.fill_tags(ratio)
 
-        self.fill_question_ratings(list(Question.objects.all()), UserProfile.objects.all())
-        self.fill_answer_ratings(list(Answer.objects.all()), UserProfile.objects.all())
+        self.link_tags_with_questions(tags, questions)
+        self.fill_question_ratings(questions, profiles)
+        self.fill_answer_ratings(answers, profiles)

@@ -22,7 +22,7 @@ def paginate(objects, request, on_page=10):
     return p.page(page_num), str(page_num), list(map(str, p.get_elided_page_range(page_num, on_each_side=2)))
 
 def index(request):
-    questions, cur_page, pages = paginate(Question.objects.with_rating_and_answer_num(), request)
+    questions, cur_page, pages = paginate(Question.objects.new(), request)
 
     context = {'questions': questions,
                'pages': pages, 'cur_page': cur_page}
@@ -38,14 +38,12 @@ def hot(request, page = 1):
     return render(request, 'hot.html', context=context)
 
 def question(request, question_id: int, page = 1):
-    # if (question_id >= len(models.QUESTIONS)):
-    #     raise Http404()
-    # try:
-    question = Question.objects.get(id=question_id)
-    # except:
-    answers = Answer.objects.of_question(question)
+    try:
+        question = Question.objects.get(id=question_id)
+    except:
+        raise Http404()
 
-    answers, cur_page, pages = paginate(answers, request, 7)
+    answers, cur_page, pages = paginate(Answer.objects.of_question(question), request, 5)
 
     context = {'question': question,
                'answers': answers,
@@ -58,8 +56,8 @@ def tag(request, tag_name):
     questions = Question.objects.by_tag(tag_name)
     questions, cur_page, pages = paginate(questions, request)
 
-    context = {'tag_name': tag_name, 'pages': pages, 'cur_page': cur_page,
-               'questions': questions}
+    context = {'tag_name': tag_name, 'pages': pages,
+               'cur_page': cur_page, 'questions': questions}
 
     return render(request, 'tag.html', context=context)
 
