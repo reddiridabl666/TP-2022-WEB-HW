@@ -2,14 +2,14 @@
 
 <div class="rating flex-centered justify-content-evenly mx-auto">
   <span class="px-0">
-    <input class="d-none" type="radio" name="rating-{{ id|default:0 }}" id="dislike-{{ id|default:0 }}">
+    <input class="d-none" type="checkbox" name="dislike-{{ id|default:0 }}" id="dislike-{{ id|default:0 }}">
     <label class="px-0" for="dislike-{{ id|default:0 }}"><img class="minus" src="{% static "img/minus-svgrepo-com.svg" %}" alt="-"></label>
   </span>
 
   <span>{{ rating }}</span>
 
   <span class="px-0">
-    <input class="d-none" type="radio" name="rating-{{ id|default:0 }}" id="like-{{ id|default:0 }}">
+    <input class="d-none" type="checkbox" name="like-{{ id|default:0 }}" id="like-{{ id|default:0 }}">
     <label class="px-0" for="like-{{ id|default:0 }}"><img class="plus" src="{% static "img/plus-svgrepo-com.svg" %}" alt="+"></label>
   </span>
 </div>

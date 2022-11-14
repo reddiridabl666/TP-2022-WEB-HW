@@ -60,13 +60,12 @@
     </div>
 
     <div class="row">
-      <div class="col-7">
+      <div class="col-lg-7 col-md-8 me-lg-5 me-md-0">
         {% block content %}
         {% endblock %}
       </div>
 
-      <div class="col-md-1 col-lg-1"></div>
-      <div class="col-md-4 col-lg-4">
+      <div class="col-md-4 col-lg-4 ms-lg-5 ms-md-0">
         <h3>Popular Tags</h3>
         <table class="table table-borderless">
           {% for tag in tag_list|slice:":15" %}

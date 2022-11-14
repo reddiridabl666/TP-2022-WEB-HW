@@ -74,7 +74,7 @@ main {
     height: auto;
 }
 
-.rating input[type="radio"]:checked + label>img {
+.rating input[type="checkbox"]:checked + label>img {
     padding-top: 4px;
     padding-bottom: 4px;
 
