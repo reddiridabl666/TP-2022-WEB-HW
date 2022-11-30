@@ -1,50 +1,55 @@
 {% extends "include/base.html" %}
 
+{% load bootstrap5 %}
+
 {% block heading %}
   <h2>Register</h2>
 {% endblock %}
 
 {% block content %}
-  <p id="error-msg" class="text-danger">This login is already taken</p>
+{#  <p id="error-msg" class="text-danger">This login is already taken</p>#}
+  {% bootstrap_messages %}
 
-  <form action="">
-    <div class="form-group row mb-3">
-      <label for="login" class="col-lg-3 col-md-5 col-form-label">Login</label>
-      <div class="col-lg-5 col-md-7">
-        <input type="text" id="login" class="form-control" required maxlength="20">
-      </div>
-    </div>
-
-    <div class="form-group row mb-3">
-      <label for="email" class="col-lg-3 col-md-5 col-form-label">Email</label>
-      <div class="col-lg-5 col-md-7">
-        <input type="email" id="email" class="form-control" required maxlength="320">
-      </div>
-    </div>
-
-    <div class="form-group row mb-3">
-      <label for="nickname" class="col-lg-3 col-md-5 col-form-label">Nickname</label>
-      <div class="col-lg-5 col-md-7">
-        <input type="text" id="nickname" class="form-control" required maxlength="20">
-      </div>
-    </div>
-
-    <div class="form-group row mb-3">
-      <label for="password" class="col-lg-3 col-md-5 col-form-label">Password</label>
-      <div class="col-lg-5 col-md-7">
-        <input type="password" id="password" class="form-control" required maxlength="20">
-      </div>
-    </div>
-
-    <div class="form-group row mb-3">
-      <label for="repeat-password" class="col-lg-3 col-md-5 col-form-label">Repeat password</label>
-      <div class="col-lg-5 col-md-7">
-        <input type="password" id="repeat-password" class="form-control" required maxlength="20">
-      </div>
-    </div>
-
+  <form action="{% url "signup" %}" method="post">
+    {% bootstrap_form form layout='horizontal' %}
+    {% csrf_token %}
+{#    <div class="form-group row mb-3">#}
+{#      <label for="login" class="col-lg-3 col-md-5 col-form-label">Login</label>#}
+{#      <div class="col-lg-5 col-md-7">#}
+{#        <input type="text" id="login" name="username" class="form-control" required maxlength="20">#}
+{#      </div>#}
+{#    </div>#}
+{##}
+{#    <div class="form-group row mb-3">#}
+{#      <label for="email" class="col-lg-3 col-md-5 col-form-label">Email</label>#}
+{#      <div class="col-lg-5 col-md-7">#}
+{#        <input type="email" id="email" name="email" class="form-control" required maxlength="320">#}
+{#      </div>#}
+{#    </div>#}
+{##}
+{#    <div class="form-group row mb-3">#}
+{#      <label for="nickname" class="col-lg-3 col-md-5 col-form-label">Nickname</label>#}
+{#      <div class="col-lg-5 col-md-7">#}
+{#        <input type="text" id="nickname" name="nickname" class="form-control" required maxlength="20">#}
+{#      </div>#}
+{#    </div>#}
+{##}
+{#    <div class="form-group row mb-3">#}
+{#      <label for="password" class="col-lg-3 col-md-5 col-form-label">Password</label>#}
+{#      <div class="col-lg-5 col-md-7">#}
+{#        <input type="password" id="password" name="password" class="form-control" required maxlength="20">#}
+{#      </div>#}
+{#    </div>#}
+{##}
+{#    <div class="form-group row mb-3">#}
+{#      <label for="repeat-password" class="col-lg-3 col-md-5 col-form-label">Repeat password</label>#}
+{#      <div class="col-lg-5 col-md-7">#}
+{#        <input type="password" id="repeat-password" name="repeat-password" class="form-control" required maxlength="20">#}
+{#      </div>#}
+{#    </div>#}
+{##}
     <div class="form-group row">
-      <dic class="col-lg-3 col-md-5 "></dic>
+      <dic class="col-lg-3 col-md-3"></dic>
       <div class="smaller-font col-7 d-flex align-items-center">
         <input class="btn btn-outline-success" type="submit" value="Submit">
         <a href="{% url "login" %}" class="tag ms-2">or Log In</a>

@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.core.paginator import Paginator
+from django.urls import reverse
 from django.views.decorators.http import require_GET
 
 from app.models import *
+from app.forms import *
 
 def paginate(objects, request, on_page=10):
     page_num = request.GET.get('page', default='1')
@@ -68,7 +70,15 @@ def login(request):
     return render(request, 'login.html')
 
 def signup(request):
-    return render(request, 'signup.html')
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('index'))
+    else:
+        form = RegisterForm()
+
+    return render(request, 'signup.html', { "form": form })
 
 def settings(request):
     return render(request, 'settings.html')

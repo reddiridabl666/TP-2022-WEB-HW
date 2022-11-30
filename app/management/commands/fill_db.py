@@ -26,14 +26,21 @@ class Command(BaseCommand):
 
     @staticmethod
     def fill_users(ratio):
-        user_id = auth.User.objects.all().count()
+        # user_id = auth.User.objects.all().count()
+        #
+        # users = [
+        #     auth.User(username=fake.user_name() + str(user_id + i),
+        #               password=fake.password(), email=fake.unique.email())
+        #     for i in range(ratio)
+        # ]
+        #
+        # auth.User.objects.bulk_create(users)
 
-        users = [
-            auth.User(username=fake.user_name() + str(user_id + i), password=fake.password())
-            for i in range(ratio)
-        ]
+        users = auth.User.objects.all()
+        for user in users:
+            user.email = email=fake.unique.email()
 
-        auth.User.objects.bulk_create(users)
+        auth.User.objects.bulk_update(users, ['email'])
 
         return users
 
@@ -42,8 +49,7 @@ class Command(BaseCommand):
         profiles = [
             UserProfile(user=user,
                         avatar="avatars/" + str(fake.random_int(min=-1, max=2)) + ".png",
-                        nickname=fake.unique.user_name(),
-                        email=fake.unique.email())
+                        nickname=fake.unique.user_name())
             for user in users
         ]
 
@@ -165,11 +171,11 @@ class Command(BaseCommand):
             ratio = DEFAULT_RATIO
 
         users = self.fill_users(ratio)
-        profiles = self.fill_profiles(users)
-        questions = self.fill_questions(profiles)
-        answers = self.fill_answers(questions, profiles)
-        tags = self.fill_tags(ratio)
-
-        self.link_tags_with_questions(tags, questions)
-        self.fill_question_ratings(questions, profiles)
-        self.fill_answer_ratings(answers, profiles)
+        # profiles = self.fill_profiles(users)
+        # questions = self.fill_questions(profiles)
+        # answers = self.fill_answers(questions, profiles)
+        # tags = self.fill_tags(ratio)
+        #
+        # self.link_tags_with_questions(tags, questions)
+        # self.fill_question_ratings(questions, profiles)
+        # self.fill_answer_ratings(answers, profiles)

@@ -80,7 +80,7 @@
         <h3>Best Members</h3>
         <ol>
           {% for user in users|slice:":10" %}
-            <li><a class="tag" href="#">{{ user }}</a></li>
+            <li><a class="tag" href="#">{{ user.nickname }}</a></li>
           {% endfor %}
         </ol>
         

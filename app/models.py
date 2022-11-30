@@ -7,7 +7,7 @@ from django.dispatch import receiver
 
 class UserProfileManager(models.Manager):
     def best(self):
-        return self.annotate(rating=models.Sum('answer__rating')).order_by('-rating').only('user')
+        return self.annotate(rating=models.Sum('answer__rating')).order_by(models.F('rating').desc(nulls_last=True))
         # return self
 
 
@@ -17,7 +17,7 @@ class UserProfile(models.Model):
     signed_up_at = models.DateTimeField(auto_now_add=True)
 
     nickname = models.CharField(max_length=30, unique=True)
-    email = models.EmailField(max_length=320, unique=True)
+    # email = models.EmailField(max_length=320, unique=True)
 
     objects = UserProfileManager()
 
