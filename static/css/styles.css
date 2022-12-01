@@ -20,14 +20,17 @@ main {
 
 .avatar {
     width: 50px;
+    height: 50px;
 }
 
 .avatar-question {
     width: 60px;
+    height: 60px;
 }
 
 .avatar-big {
     width: 100px;
+    height: 100px;
 }
 
 .question {

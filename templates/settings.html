@@ -1,43 +1,17 @@
 {% extends "include/base.html" %}
 
 {% load static %}
+{% load bootstrap5 %}
 
 {% block heading %}
-  <h2>Settings: User</h2>
+  <h2>Settings</h2>
 {% endblock %}
 
 {% block content %}
-  <p id="error-msg" class="text-danger">This login is already taken</p>
 
-  <form action="">
-    <div class="form-group row mb-3">
-      <label for="login" class="col-lg-3 col-md-5 col-form-label">Login</label>
-      <div class="col-lg-5 col-md-7">
-        <input type="text" id="login" class="form-control" value="{{ request.user }}" required maxlength="20">
-      </div>
-    </div>
-
-    <div class="form-group row mb-3">
-      <label for="email" class="col-lg-3 col-md-5 col-form-label">Email</label>
-      <div class="col-lg-5 col-md-7">
-        <input type="email" id="email" class="form-control" value="{{ request.user.userprofile.email }}" required maxlength="320">
-      </div>
-    </div>
-
-    <div class="form-group row mb-3">
-      <label for="nickname" class="col-lg-3 col-md-5 col-form-label">Nickname</label>
-      <div class="col-lg-5 col-md-7">
-        <input type="text" id="nickname" class="form-control" value="{{ request.user.userprofile.nickname }}" required maxlength="20">
-      </div>
-    </div>
-
-    <div class="form-group row mb-3 align-items-center">
-      <label for="avatar" class="col-lg-3 col-md-5 col-form-label">Change Avatar</label>
-      <div class="col-lg-5 col-md-7">
-        <img src="{{ request.user.userprofile.avatar.url }}" alt="user-avatar.png" class="avatar-big mb-3">
-        <input type="file" accept="image/*" id="avatar" class="form-control">
-      </div>
-    </div>
+  <form action="{% url "settings" %}" method="post" enctype="multipart/form-data">
+    {% bootstrap_form form layout='horizontal' bound_css_class='' %}
+    {% csrf_token %}
 
     <div class="form-group row">
       <dic class="col-lg-3 col-md-5"></dic>

@@ -72,7 +72,7 @@ class Question(models.Model):
 
 class AnswerManager(models.Manager):
     def of_question(self, question):
-        return self.filter(question__exact=question).order_by('-rating')
+        return self.filter(question__exact=question).order_by('-rating', 'created_at')
 
 
 class Answer(models.Model):

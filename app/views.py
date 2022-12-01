@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.forms import model_to_dict
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpResponseRedirect
 from django.core.paginator import Paginator
 from django.urls import reverse
 from django.views.decorators.http import require_GET
-import django.contrib.auth
+from django.contrib.auth import logout, login
 
 from app.models import *
 from app.forms import *
@@ -50,8 +51,8 @@ def question(request, question_id: int, page = 1):
         if request.method == "POST":
             form = AnswerForm(request.POST)
             if form.is_valid():
-                form.save(request.user, question)
-                return HttpResponseRedirect(request.get_full_path())
+                answer = form.save(request.user, question)
+                return HttpResponseRedirect(f'{request.path}?page={pages[-1] + "1"}#answer-{answer.id}')
         else:
             form = AnswerForm()
 
@@ -90,7 +91,7 @@ def log_in(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
-            auth.login(request, form.cleaned_data['user'])
+            login(request, form.cleaned_data['user'])
             return HttpResponseRedirect(next)
     else:
         form = LoginForm()
@@ -102,7 +103,7 @@ def log_out(request):
     next = request.GET.get('next', reverse('index'))
     if next == reverse('ask'):
         next = reverse('index')
-    auth.logout(request)
+    logout(request)
     return HttpResponseRedirect(next)
 
 def signup(request):
@@ -116,5 +117,15 @@ def signup(request):
 
     return render(request, 'signup.html', { "form": form })
 
+@login_required(login_url='login')
 def settings(request):
-    return render(request, 'settings.html')
+    if request.method == "POST":
+        form = SettingsForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+    else:
+        initial_data = model_to_dict(request.user)
+        initial_data['nickname'] = request.user.userprofile.nickname
+        form = SettingsForm(initial=initial_data)
+
+    return render(request, 'settings.html', { 'form': form })

@@ -111,3 +111,27 @@ class AskForm(forms.ModelForm):
             raise forms.ValidationError('Make sure that you input up to 3 tags, seperated by commas')
         tags = re.split(',\s*', tags)
         return tags
+
+
+class SettingsForm(forms.ModelForm):
+    nickname = forms.CharField(max_length=20)
+    avatar = forms.ImageField(required=False)
+
+    def save(self, commit=True):
+        user = super().save()
+
+        profile = user.userprofile
+        profile.nickname = self.cleaned_data['nickname']
+
+        if self.cleaned_data['avatar']:
+            profile.avatar = self.cleaned_data['avatar']
+        profile.save()
+
+        return user
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+        labels = {
+            'username': 'Login'
+        }
