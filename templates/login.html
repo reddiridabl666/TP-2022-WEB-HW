@@ -1,33 +1,21 @@
 {% extends "include/base.html" %}
 
+{% load bootstrap5 %}
+
 {% block heading %}
   <h2>Log In</h2>
 {% endblock %}
 
 {% block content %}
-  <p id="error-msg" class="text-danger">Wrong login or password</p>
-
-  <form action="">
-    <div class="form-group row mb-3">
-      <label for="login" class="col-lg-2 col-md-3 col-form-label">Login</label>
-      <div class="col-md-7 col-lg-4">
-        <input type="text" id="login" class="form-control" required maxlength="20">
-      </div>
-    </div>
-
-    <div class="form-group row mb-3">
-      <label for="password" class="col-lg-2 col-md-3 col-form-label">Password</label>
-      <div class="col-md-7 col-lg-4">
-        <input type="password" id="password" class="form-control" required maxlength="20">
-      </div>
-    </div>
+  <form action="{% url 'login' %}?next={{ next }}" method="post">
+    {% bootstrap_form form layout='horizontal' bound_css_class='' %}
+    {% csrf_token %}
 
     <div class="form-group row">
-      <dic class="col-lg-2 col-md-3 "></dic>
-      <div class="smaller-font col-8 d-flex align-items-center">
+      <dic class="col-lg-3 col-md-3"></dic>
+      <div class="smaller-font col-7 d-flex align-items-center">
         <input class="btn btn-outline-success" type="submit" value="Submit">
-        <a href="{% url "signup" %}" class="tag ms-2">or Register</a>
+        <a href="{% url "login" %}" class="tag ms-2">or Log In</a>
       </div>
     </div>
-  </form>
 {% endblock %}

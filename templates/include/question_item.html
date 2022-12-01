@@ -1,7 +1,6 @@
 <div class="row question px-0 py-3 align-items-center">
   <div class="col-2 p-0 ps-1 center-box text-center">
-    {% include "include/user_avatar.html" with user=question.profile %}
-    {% include "include/rating.html" with rating=question.rating id=button_id %}
+    {% include "include/item_head.html" with rating=question.rating profile=question.profile %}
   </div>
 
   <div class="col-10 pe-1 py-0">

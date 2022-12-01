@@ -9,6 +9,9 @@
     <meta name="description" content="">
     <title>AskAnything!</title>
 
+    {% load bootstrap5 %}
+    {% bootstrap_javascript %}
+
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
     <link href="{% static "css/styles.css" %}" rel="stylesheet">
   </head>
@@ -34,15 +37,15 @@
             </div>
             <div class="d-flex flex-column align-items-center">
               <div class="text-secondary">
-                Hello, {{ request.user }}!
+                Hello, {{ request.user.userprofile.nickname }}!
               </div>
               <div id="menu-buttons" class="d-flex">
                 <a href="{% url "settings" %}" class="nav-link menu-btn">Settings</a>
-                <a href="{% url "index" %}" class="nav-link menu-btn">Log Out</a>
+                <a href="{% url "logout" %}?next={{ request.get_full_path }}" class="nav-link menu-btn">Log Out</a>
               </div>
             {% else %}
               <div id="menu-buttons" class="d-flex justify-content-between">
-                <a href="{% url "login" %}" class="nav-link menu-btn me-2">Log In</a>
+                <a href="{% url "login" %}?next={{ next|default:request.get_full_path }}" class="nav-link menu-btn me-2">Log In</a>
                 <a href="{% url "signup" %}" class="nav-link menu-btn">Register</a>
               </div>
             {% endif %}

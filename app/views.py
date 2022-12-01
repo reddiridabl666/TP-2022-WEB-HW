@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpResponseRedirect
 from django.core.paginator import Paginator
 from django.urls import reverse
 from django.views.decorators.http import require_GET
+import django.contrib.auth
 
 from app.models import *
 from app.forms import *
@@ -40,17 +42,24 @@ def hot(request, page = 1):
     return render(request, 'hot.html', context=context)
 
 def question(request, question_id: int, page = 1):
-    try:
-        question = Question.objects.get(id=question_id)
-    except:
-        raise Http404()
-
+    question = get_object_or_404(Question, id=question_id)
     answers, cur_page, pages = paginate(Answer.objects.of_question(question), request, 5)
+
+    form = None
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form = AnswerForm(request.POST)
+            if form.is_valid():
+                form.save(request.user, question)
+                return HttpResponseRedirect(request.get_full_path())
+        else:
+            form = AnswerForm()
 
     context = {'question': question,
                'answers': answers,
                'pages': pages,
-               'cur_page': cur_page}
+               'cur_page': cur_page,
+               'form': form}
 
     return render(request, 'question.html', context=context)
 
@@ -63,11 +72,38 @@ def tag(request, tag_name):
 
     return render(request, 'tag.html', context=context)
 
+@login_required(login_url='login')
 def ask(request):
-    return render(request, 'ask.html')
+    if request.method == "POST":
+        form = AskForm(request.POST)
+        if form.is_valid():
+            question = form.save(request.user)
+            return HttpResponseRedirect(reverse('question',  args=[question.id]))
+    else:
+        form = AskForm()
 
-def login(request):
-    return render(request, 'login.html')
+    return render(request, 'ask.html', { "form": form })
+
+def log_in(request):
+    next = request.GET.get('next', reverse('index'))
+
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            auth.login(request, form.cleaned_data['user'])
+            return HttpResponseRedirect(next)
+    else:
+        form = LoginForm()
+
+    return render(request, 'login.html', { "form": form, "next": next })
+
+@login_required(login_url='login')
+def log_out(request):
+    next = request.GET.get('next', reverse('index'))
+    if next == reverse('ask'):
+        next = reverse('index')
+    auth.logout(request)
+    return HttpResponseRedirect(next)
 
 def signup(request):
     if request.method == "POST":

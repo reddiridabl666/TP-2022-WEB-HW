@@ -1,5 +1,7 @@
 {% extends "include/base.html" %}
 
+{% load bootstrap5 %}
+
 {% block content %}
   {% include "include/question_main.html" %}
 
@@ -7,14 +9,19 @@
     {% include "include/answer_item.html" with button_id=forloop.counter %}
   {% endfor %}
 
-  <form action="" class="mb-3">
-    <div class="row mb-3">
-      <textarea class="form-control" name="answer" id="answer-input" cols="30" rows="5" placeholder="Enter your answer..." required maxlength="1000"></textarea>
-    </div>
-    <div class="row">
-      <input class="col-md-3 col-lg-2 btn btn-outline-success" type="sumbit" value="Answer">
-    </div>
-  </form>
+  {% if form %}
+    <form action="{{ request.get_full_path }}" class="mb-3" method="post">
+      {% csrf_token %}
+
+      {% for field in form %}
+        {% bootstrap_field field show_label=False %}
+      {% endfor %}
+
+      <div class="row">
+        <input class="col-md-3 ms-2 col-lg-2 btn btn-outline-success" type="submit" value="Answer">
+      </div>
+    </form>
+  {% endif %}
 {% endblock %}
 
 {% block footer %}
