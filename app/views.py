@@ -10,6 +10,7 @@ from django.contrib.auth import logout, login
 from app.models import *
 from app.forms import *
 
+
 def paginate(objects, request, on_page=10):
     page_num = request.GET.get('page', default='1')
     p = Paginator(objects, on_page)
@@ -26,6 +27,7 @@ def paginate(objects, request, on_page=10):
 
     return p.page(page_num), str(page_num), list(map(str, p.get_elided_page_range(page_num, on_each_side=2)))
 
+
 def index(request):
     questions, cur_page, pages = paginate(Question.objects.new(), request)
 
@@ -33,6 +35,7 @@ def index(request):
                'pages': pages, 'cur_page': cur_page}
 
     return render(request, 'index.html', context=context)
+
 
 def hot(request, page = 1):
     questions, cur_page, pages = paginate(Question.objects.popular(), request)
@@ -42,27 +45,29 @@ def hot(request, page = 1):
 
     return render(request, 'hot.html', context=context)
 
+
 def question(request, question_id: int, page = 1):
-    question = get_object_or_404(Question, id=question_id)
-    answers, cur_page, pages = paginate(Answer.objects.of_question(question), request, 5)
+    question_obj = get_object_or_404(Question, id=question_id)
+    answers, cur_page, pages = paginate(Answer.objects.of_question(question_obj), request, 5)
 
     form = None
     if request.user.is_authenticated:
         if request.method == "POST":
             form = AnswerForm(request.POST)
             if form.is_valid():
-                answer = form.save(request.user, question)
+                answer = form.save(request.user, question_obj)
                 return HttpResponseRedirect(f'{request.path}?page={pages[-1] + "1"}#answer-{answer.id}')
         else:
             form = AnswerForm()
 
-    context = {'question': question,
+    context = {'question': question_obj,
                'answers': answers,
                'pages': pages,
                'cur_page': cur_page,
                'form': form}
 
     return render(request, 'question.html', context=context)
+
 
 def tag(request, tag_name):
     questions = Question.objects.by_tag(tag_name)
@@ -72,6 +77,7 @@ def tag(request, tag_name):
                'cur_page': cur_page, 'questions': questions}
 
     return render(request, 'tag.html', context=context)
+
 
 @login_required(login_url='login')
 def ask(request):
@@ -84,6 +90,7 @@ def ask(request):
         form = AskForm()
 
     return render(request, 'ask.html', { "form": form })
+
 
 def log_in(request):
     next = request.GET.get('next', reverse('index'))
@@ -98,6 +105,7 @@ def log_in(request):
 
     return render(request, 'login.html', { "form": form, "next": next })
 
+
 @login_required(login_url='login')
 def log_out(request):
     next = request.GET.get('next', reverse('index'))
@@ -106,16 +114,19 @@ def log_out(request):
     logout(request)
     return HttpResponseRedirect(next)
 
+
 def signup(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
+            login(request, form.cleaned_data['user'])
             return HttpResponseRedirect(reverse('index'))
     else:
         form = RegisterForm()
 
-    return render(request, 'signup.html', { "form": form })
+    return render(request, 'signup.html', {"form": form})
+
 
 @login_required(login_url='login')
 def settings(request):

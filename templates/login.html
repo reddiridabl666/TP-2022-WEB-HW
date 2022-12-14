@@ -12,10 +12,10 @@
     {% csrf_token %}
 
     <div class="form-group row">
-      <dic class="col-lg-3 col-md-3"></dic>
+      <div class="col-lg-3 col-md-3"></div>
       <div class="smaller-font col-7 d-flex align-items-center">
         <input class="btn btn-outline-success" type="submit" value="Submit">
-        <a href="{% url "login" %}" class="tag ms-2">or Log In</a>
+        <a href="{% url "signup" %}" class="tag ms-2">or Sign Up</a>
       </div>
     </div>
 {% endblock %}

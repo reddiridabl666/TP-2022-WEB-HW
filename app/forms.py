@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from app.models import *
 
+
 class LoginForm(forms.Form):
     login = forms.CharField(max_length=20)
     password = forms.CharField(max_length=20, widget=forms.PasswordInput)
@@ -30,6 +31,7 @@ class RegisterForm(forms.Form):
         new_user = User.objects.create_user(cleaned_data['login'],
                                             cleaned_data['email'],
                                             cleaned_data['password'])
+        cleaned_data['user'] = new_user
         UserProfile.objects.create(user=new_user, nickname=cleaned_data['nickname'])
 
     def clean_email(self):
@@ -73,9 +75,10 @@ class AnswerForm(forms.ModelForm):
             'body': forms.Textarea(attrs={'cols': 30, 'rows': 5, 'placeholder': "Enter your answer"})
         }
 
+
 class AskForm(forms.ModelForm):
     tags = forms.CharField(max_length=120,
-            widget=forms.TextInput(attrs={'placeholder': 'Input up to 3 tags seperated by commas'}))
+                           widget=forms.TextInput(attrs={'placeholder': 'Input up to 3 tags seperated by commas'}))
 
     def save(self, user, commit=True):
         question = super(AskForm, self).save(commit=False)
@@ -105,11 +108,11 @@ class AskForm(forms.ModelForm):
 
     def clean_tags(self):
         tags = self.cleaned_data['tags']
-        if re.fullmatch('(\w+(, *|$)){1,3}', tags) is None:
-            if re.search('[^(\w| |,)]', tags) is not None:
+        if re.fullmatch(r'(\w+(, *|$)){1,3}', tags) is None:
+            if re.search(r'[^(\w|\s|,)]', tags) is not None:
                 raise forms.ValidationError('You can only use letters, numbers, commas and spaces')
             raise forms.ValidationError('Make sure that you input up to 3 tags, seperated by commas')
-        tags = re.split(',\s*', tags)
+        tags = re.split(r',\s*', tags)
         return tags
 
 
